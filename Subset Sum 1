@@ -1,0 +1,25 @@
+___CODENINJA___
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static ArrayList<Integer> subsetSum(int num[]) {
+        // Write your code here..
+        ArrayList<Integer> ans = new ArrayList<>();
+        func(0,0,num,ans);
+        Collections.sort(ans);
+        return ans;
+
+    }
+    public static void func(int ind,int sum,int arr[],ArrayList<Integer> ans)
+    {
+        if(ind == arr.length) 
+        {
+            ans.add(sum);
+            return;
+        }
+        func(ind + 1 , sum + arr[ind] , arr , ans);
+        func(ind + 1 , sum , arr , ans);
+    }
+
+}
