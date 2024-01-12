@@ -1,0 +1,46 @@
+// https://leetcode.com/problems/letter-combinations-of-a-phone-number/description/
+
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        
+        // create a string list o stroe the ans
+        List <String> ans = new ArrayList<>();
+
+        if(digits.length() == 0) return ans;
+// take a hasmap to stroe all string,,,mane kn char kn string denote kr6e sb stroe taklo
+        HashMap<Character,String> map = new HashMap<>();
+        map.put('2',"abc");
+        map.put('3',"def");
+        map.put('4',"ghi");
+        map.put('5',"jkl");
+        map.put('6',"mno");
+        map.put('7',"pqrs");
+        map.put('8',"tuv");
+        map.put('9',"wxyz");
+
+        backtrack(digits , map , 0 ,ans,new StringBuilder());
+        return ans;
+        
+    }
+    public static void backtrack(String digits, HashMap<Character,String> map , int ind,  List <String> ans, StringBuilder sb)
+    {
+        // Base Condition
+        if(ind == digits.length())
+        {
+            // add the ans list 
+            //sb is string builder so store it in a string(ans) , we have to convert to string
+            ans.add(sb.toString());
+            return;
+        }
+        // map teke pao oi digit or char er string
+        String curr = map.get(digits.charAt(ind));
+        // loop oi porjonto cholbe
+        for(int i = 0 ; i < curr.length() ; i++)
+        {
+            // To add in stringbuilder we use append
+            sb.append(curr.charAt(i));
+            backtrack(digits,map,ind+1,ans,sb); // again call
+            sb.deleteCharAt(sb.length() - 1);   // backtrling er sompy remove the last insertion element
+        }
+    }
+}
